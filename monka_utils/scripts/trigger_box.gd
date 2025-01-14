@@ -31,22 +31,22 @@ var triggerComponent:TriggerComponent
 @export var debug:bool = false
 
 
+@export_group("Trigger Parameters 🔴")
 
-
-@export_group("Call")
+@export_subgroup("Call 📞")
 ## Calls a method on the colliding body
 @export var method:String = "queue_free"
 ## Arguments to pass to the method
 @export var args:Array
 
-@export_group("Sound")
+@export_subgroup("Sound 🔊")
 @export var soundResource:MonkaSoundResource
 ## the [param global_position] of this node will be used instead of [member TriggerBox.soundOrigin] ONLY if this is NOT [color=salmon][b]Null[/b][/color]
 @export var soundOrigin:Node3D
 ## if [member TriggerBox.soundOrigin] is null, then this [Vector3] will be used
 @export var soundPosition:Vector3
 
-@export_group("Animation")
+@export_subgroup("Animation 🎬")
 @export var AnimationTarget:AnimationPlayer
 @export var AnimationName:String
 
