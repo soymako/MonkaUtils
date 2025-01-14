@@ -1,21 +1,30 @@
 
 extends Area3D
-
+## If True, this node will only work when visible
+@export var disableOnVisibility:bool = true
 ## if True, the force will be applied from the [param global_position] of the area
 ## [br]else, it'll use the [param basis.z] for the direction
-@export var disableOnVisibility:bool = true
 @export var singlePoint:bool = false
+## Instead of [b]pushing[/b] every colliding rigid body will be pulled
 @export var pull:bool = false
-
+@export_group("Timing 🕑")
+## This node will act temporarily and have a max living time, after that. It'll be deleted using [method queue_free]
 @export var timed:bool = true
+## Max living time this node is allowed to exist, living time starts after [param Air.fadeInTime]
 @export var livingTime:float = .5
+## Controls the fadeIn curve the [param Air.windIntensity] has
 @export_exp_easing("inout") var fadeInTime:float = 1
+## Controls the fadeOut curve the [param Air.windIntensity] has when [param Air.livingTime] is over
 @export_exp_easing("inout") var fadeOutTime:float = 1
 
-## Will shoot a raycast for every body it collides with 
-## [br]this may affect performance
+@export_group("Detection 🔍")
+## Shoots a raycast for every body it collides with. [br]
+## [br][color=salmon]this may affect performance, even though it uses a [PhysicsRayQueryParameters3D] it can cause a lot of stress to your scene
 @export var canBeObstructed:bool = true
+## Controls the distance of the raycast when checking if the colliding body should be affected by wind.
 @export var windDistanceCheck:float = 2.5
+
+## Controls the intensity of the air
 @export var windIntensity:float = 1:
 	set(v):
 		realWindIntensity = v

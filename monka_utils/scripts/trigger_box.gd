@@ -46,6 +46,10 @@ var triggerComponent:TriggerComponent
 ## if [member TriggerBox.soundOrigin] is null, then this [Vector3] will be used
 @export var soundPosition:Vector3
 
+@export_group("Animation")
+@export var AnimationTarget:AnimationPlayer
+@export var AnimationName:String
+
 var optionLabel:Label3D
 var oneShotLabel:Label3D
 
@@ -56,7 +60,8 @@ enum triggerBoxTypes{
 	CALL, ## Calls a specified method on the colliding body, along with its arguments
 	TRIGGER_COMPONENT, ## Calls [method TriggerComponent.trigger]
 	PLAY_SOUND, ## Calls [method Monka.playSound] [br][color=orange]Note: You need to pass a [MonkaSoundResource] to the method[/color]
-	PLAY_SPATIAL_SOUND ## Calls [method Monka.playSpatialSound] [br][color=orange]Note: You need to pass a [MonkaSoundResource] to the method[/color]
+	PLAY_SPATIAL_SOUND, ## Calls [method Monka.playSpatialSound] [br][color=orange]Note: You need to pass a [MonkaSoundResource] to the method[/color]
+	PLAY_ANIMATION
 }
 
 
@@ -144,5 +149,7 @@ func onBodyEntered(b:Node3D)->void:
 		triggerBoxTypes.TRIGGER_COMPONENT:
 			if triggerComponent: triggerComponent.trigger()
 			else: push_error("TriggerBox does not has TriggerComponent as a child!: \nTriggerBox: %s \nTriggerComponent: %s" %[self, triggerComponent])
-			pass
+		triggerBoxTypes.PLAY_ANIMATION:
+			if AnimationTarget and not AnimationName.is_empty():
+				AnimationTarget.play(AnimationName)
 	pass
