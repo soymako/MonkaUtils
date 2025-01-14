@@ -28,7 +28,7 @@ You can use it for your singleplayer games to play a sound or music just at the 
 
 Since it inherits from **Area3D** you need to add a **CollisionShape3D** as a child.
 
-# [Air](https://prnt.sc/okTdCanORyp0)
+# ![alt text](http://url/to/img.png)
 
 in the other hand, the Air node works a little different, this node applies a force to all colliding bodies when active
 
