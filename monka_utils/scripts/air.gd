@@ -103,10 +103,10 @@ func onOverlappingBodies()->void:
 			var r:RigidBody3D = _b as RigidBody3D
 			
 			if singlePoint:
-				velocityToApply = (r.global_position - self.global_position).normalized() * realWindIntensity / 4
+				velocityToApply = (r.global_position - self.global_position).normalized() * (realWindIntensity / 4)
 			
 			if pull:
-				velocityToApply = (self.global_position - r.global_position).normalized() * realWindIntensity / 4
+				velocityToApply = (self.global_position - r.global_position).normalized() * (realWindIntensity / 4)
 			
 			if canBeObstructed:
 				if spaceState:
