@@ -1,5 +1,15 @@
 extends Node
 
+var userPath:String = OS.get_user_data_dir()
+
+
+const DirectoryName:String = "MonkaUtils"
+const monkaConsoleText:String = "📦Monka! - "
+const graphicConfigResourceName:String = "graphic_config.tres"
+
+
+func getFullDirectoryPath()->String:
+	return userPath + "/" + DirectoryName
 
 class monka_errors:
 	extends Node
@@ -11,7 +21,31 @@ class monka_errors:
 
 var errors:monka_errors = monka_errors.new()
 
+var graphicConfig:GraphicConfigResource
+
+func createMonkaUtilsDirectory()->void:
+	#print()
+	if not DirAccess.dir_exists_absolute(getFullDirectoryPath()):
+		DirAccess.make_dir_absolute(getFullDirectoryPath())
+
+func getGraphicConfig()->GraphicConfigResource:
+	var confResource:GraphicConfigResource = ResourceLoader.load(getFullDirectoryPath() + "/" + graphicConfigResourceName)
+	if confResource == null:
+		confResource = GraphicConfigResource.new()
+		print_rich(monkaConsoleText + "[color=salmon]GraphicConfigResource was not found in[/color] %s\n[color=salmon]creating a new one...[/color]" %(getFullDirectoryPath() + "/" + graphicConfigResourceName))
+		saveGraphicConfigResource(confResource)
+	return confResource
+
+func saveGraphicConfigResource(res:GraphicConfigResource)->void:
+	if res:
+		ResourceSaver.save(res, getFullDirectoryPath() + "/" + graphicConfigResourceName)
+		print_rich(monkaConsoleText + "[color=green]Resource saved at[/color] %s" %(getFullDirectoryPath()))
+	pass
+
 func _ready() -> void:
+	createMonkaUtilsDirectory()
+	graphicConfig = getGraphicConfig()
+	print("data dir: ", userPath + "/MonkaUtils")
 	self.add_child(errors)
 	pass
 
